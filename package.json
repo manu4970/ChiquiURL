@@ -2,7 +2,7 @@
   "name": "chiquiurl",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon api.js",
@@ -16,9 +16,13 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "pg": "^8.11.3",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "nodemon": "3.0.2"
+  },
+  "engines": {
+    "node": "21.5.0"
   }
 }
