@@ -20,38 +20,39 @@ client.connect((err) => {
 })
 
 app.get('/', async (req, res) => {
-  res.render('index')
-  console.log()
+  const allUrls = (await client.query('Select * from urls ORDER BY id')).rows
+  return res.render('index', { allUrls: allUrls })
 })
 
-app.get('/urls', (req, res) => {
+app.get('/urls', async (req, res) => {
   client.query('Select * from urls', (err, result) => {
     if (!err) {
-      res.send(result.rows)
+      return res.send(result.rows)
     } else {
-      console.log(err)
+      return console.log(err)
     }
   })
   // eslint-disable-next-line no-unused-expressions
   client.end
+  return
 })
 
 app.post('/urls', async (req, res) => {
   const url = req.body.longUrl
   const shortUrl = shortId.generate()
   // console.log(url)
-  const insertQuery = `insert into urls (long_url, short_url) 
-                       values('${url}', '${shortUrl}')`
+  const insertQuery = `insert into urls (long_url, short_url) values('${url}', '${shortUrl}')`
 
-  await client.query(insertQuery, (err, result) => {
-    if (!err) {
-      res.send('Insertion was successful')
-    } else { console.log(err.message) }
+  client.query(insertQuery, (err, result)=>{
+    if(!err){
+        console.log('Insertion was successful')
+        return res.redirect('/')
+    }
+    else{ console.log(err.message) }
   })
-  // eslint-disable-next-line no-unused-expressions
-  client.end
-  // res.redirect('/')
+  client.end;
 })
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`)
