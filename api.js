@@ -11,8 +11,15 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+client.connect((err) => {
+  if (err) {
+    console.error('connection error', err.stack)
+  } else {
+    console.log('DB Connected 👍')
+  }
+})
+
 app.get('/', async (req, res) => {
-  
   res.render('index')
   console.log()
 })
@@ -50,10 +57,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`)
 })
 
-client.connect((err) => {
-  if (err) {
-    console.error('connection error', err.stack)
-  } else {
-    console.log('DB Connected 👍')
-  }
-})
+
