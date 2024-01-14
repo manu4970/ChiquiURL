@@ -50,7 +50,7 @@ app.post('/urls', async (req, res) => {
   })
   // eslint-disable-next-line no-unused-expressions
   client.end
-  res.redirect('/')
+  // res.redirect('/')
 })
 
 app.listen(PORT, () => {
