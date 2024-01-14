@@ -53,6 +53,24 @@ app.post('/urls', async (req, res) => {
   client.end;
 })
 
+app.get('/:shortUrl', async (req, res) => {
+  const shortUrl = req.params.shortUrl
+  const query = `select * from urls where short_url='${shortUrl}'`
+  client.query(query, (err, result) => {
+    if (!err) {
+      if (result.rows.length > 0) {
+        return res.redirect(result.rows[0].long_url)
+      } else {
+        return res.status(404).send('Not Found')
+      }
+    } else {
+      return console.log(err)
+    }
+  })
+  client.end
+  return
+})
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`)
