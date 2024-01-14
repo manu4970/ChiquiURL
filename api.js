@@ -2,16 +2,19 @@ const client = require('./db.js')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 const express = require('express')
+const shortId = require('shortid')
 
 const app = express()
-
-app.set('view engine', 'ejs')
-
-app.use(bodyParser.json())
 const PORT = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.get('/', async (req, res) => {
+  
   res.render('index')
+  console.log()
 })
 
 app.get('/urls', (req, res) => {
@@ -26,18 +29,21 @@ app.get('/urls', (req, res) => {
   client.end
 })
 
-app.post('/urls', (req, res) => {
-  const url = req.body
+app.post('/urls', async (req, res) => {
+  const url = req.body.longUrl
+  const shortUrl = shortId.generate()
+  // console.log(url)
   const insertQuery = `insert into urls (long_url, short_url) 
-                       values('${url.long_url}', '${url.short_url}')`
+                       values('${url}', '${shortUrl}')`
 
-  client.query(insertQuery, (err, result) => {
+  await client.query(insertQuery, (err, result) => {
     if (!err) {
       res.send('Insertion was successful')
     } else { console.log(err.message) }
   })
   // eslint-disable-next-line no-unused-expressions
   client.end
+  res.redirect('/')
 })
 
 app.listen(PORT, () => {
