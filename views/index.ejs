@@ -39,20 +39,20 @@
           </div>
         </div>
       </section>
-        <section class="d-flex justify-content-center align-items-center">
-              <div class="w-full mx-auto mt-2 px-4 py-8 bg-light shadow bg-body-tertiary rounded-4">
-              <table class="table">
-                <thead>
-                  <th class="width-5">Long URL</th>
-                  <th>Short URL</th>
+        <section class="d-flex justify-content-center align-items-center" style="background-color: #f8f9fa00">
+              <div class="w-full mx-auto mt-2 px-4 py-8 bg-light shadow bg-body-tertiary rounded-4 ">
+              <table class="table bg-light bg-body-tertiary" style="background-color: #f8f9fa00;">
+                <thead style="background-color: #f8f9fa00">
+                  <th class="width-5" style="background-color: #f8f9fa00">Long URL</th>
+                  <th style="background-color: #f8f9fa00">Short URL</th>
                 </thead>
-                <tbody>
+                <tbody style="background-color: #f8f9fa00">
               <% allUrls.reverse().forEach((url) => { %>
-                  <tr>
-                    <td class="text-truncate" style="max-width: 360px;">
+                  <tr style="background-color: #f8f9fa00">
+                    <td class="text-truncate" style="max-width: 360px; background-color: #f8f9fa00"">
                       <a  href="<%= url.long_url %>"><%= url.long_url %></a>
                     </td>
-                    <td>
+                    <td style="background-color: #f8f9fa00">
                       <a href="<%= url.short_url %>"><%= url.short_url %></a>
                     </td>
                 </tr>
